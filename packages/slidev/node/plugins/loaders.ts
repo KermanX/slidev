@@ -5,13 +5,10 @@ import fg from 'fast-glob'
 import fs from 'fs-extra'
 import Markdown from 'markdown-it'
 import { bold, gray, red, yellow } from 'kolorist'
-
-// @ts-expect-error missing types
-import mila from 'markdown-it-link-attributes'
+import Mila from 'markdown-it-link-attributes'
 import type { SlideInfo } from '@slidev/types'
 import * as parser from '@slidev/parser/fs'
 import equal from 'fast-deep-equal'
-
 import type { LoadResult } from 'rollup'
 import type { ResolvedSlidevOptions, SlidevPluginOptions, SlidevServerOptions } from '../options'
 import { stringifyMarkdownTokens } from '../utils'
@@ -61,7 +58,7 @@ export function sendHmrReload(server: ViteDevServer, modules: ModuleNode[]) {
 }
 
 const md = Markdown({ html: true })
-md.use(mila, {
+md.use(Mila, {
   attrs: {
     target: '_blank',
     rel: 'noopener',

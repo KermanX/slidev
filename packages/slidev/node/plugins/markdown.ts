@@ -3,12 +3,8 @@ import Markdown from 'unplugin-vue-markdown/vite'
 import type { Plugin } from 'vite'
 import * as base64 from 'js-base64'
 import { slash } from '@antfu/utils'
-
-// @ts-expect-error missing types
-import mila from 'markdown-it-link-attributes'
-
-// @ts-expect-error missing types
-import mif from 'markdown-it-footnote'
+import Mila from 'markdown-it-link-attributes'
+import Mif from 'markdown-it-footnote'
 import { taskLists } from '@hedgedoc/markdown-it-plugins'
 import type { KatexOptions } from 'katex'
 import type MarkdownIt from 'markdown-it'
@@ -83,14 +79,14 @@ export async function createMarkdownPlugin(
     },
     ...mdOptions,
     markdownItSetup(md) {
-      md.use(mila, {
+      md.use(Mila, {
         attrs: {
           target: '_blank',
           rel: 'noopener',
         },
       })
 
-      md.use(mif)
+      md.use(Mif)
       md.use(taskLists, { enabled: true, lineNumber: true, label: true })
       md.use(Katex, KatexOptions)
 

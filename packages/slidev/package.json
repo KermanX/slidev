@@ -116,6 +116,8 @@
   },
   "devDependencies": {
     "@hedgedoc/markdown-it-plugins": "^2.1.4",
+    "@types/markdown-it-footnote": "^3.0.4",
+    "@types/markdown-it-link-attributes": "^3.0.4",
     "@types/plantuml-encoder": "^1.4.2",
     "semver": "^7.6.0"
   }
