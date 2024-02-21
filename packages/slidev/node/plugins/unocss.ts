@@ -48,6 +48,6 @@ export async function createUnocssPlugin(
   return UnoCSS({
     configFile: false,
     configDeps: configFiles,
-    ...config as any,
+    ...config,
   })
 }
