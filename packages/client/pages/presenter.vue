@@ -12,12 +12,13 @@ import { getSlideClass } from '../utils'
 import { useTimer } from '../logic/utils'
 import { isDrawing } from '../logic/drawings'
 import { useFixedClicks, usePrimaryClicks } from '../composables/useClicks'
+import { useSlide } from '../composables/useSlide'
 import SlideWrapper from '../internals/SlideWrapper'
 import SlideContainer from '../internals/SlideContainer.vue'
 import NavControls from '../internals/NavControls.vue'
 import QuickOverview from '../internals/QuickOverview.vue'
 import NoteEditable from '../internals/NoteEditable.vue'
-import NoteStatic from '../internals/NoteStatic.vue'
+import NoteDisplay from '../internals/NoteDisplay.vue'
 import Goto from '../internals/Goto.vue'
 import SlidesShow from '../internals/SlidesShow.vue'
 import DrawingControls from '../internals/DrawingControls.vue'
@@ -146,13 +147,13 @@ onMounted(() => {
           :clicks-context="clicksContext"
           :style="{ fontSize: `${presenterNotesFontSize}em` }"
         />
-        <NoteStatic
+        <NoteDisplay
           v-else
           :key="`static-${currentSlideNo}`"
-          :no="currentSlideNo"
+          :note-html="useSlide(currentSlideNo).info?.value?.noteHTML"
+          :clicks-context="clicksContext"
           class="w-full max-w-full h-full overflow-auto p-2 lg:p-4"
           :style="{ fontSize: `${presenterNotesFontSize}em` }"
-          :clicks-context="clicksContext"
         />
         <div class="border-t border-main py-1 px-2 text-sm">
           <IconButton title="Increase font size" @click="increasePresenterFontSize">

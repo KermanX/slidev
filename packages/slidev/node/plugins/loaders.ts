@@ -103,6 +103,8 @@ export function createSlidesLoader(
   let _layouts_cache_time = 0
   let _layouts_cache: Record<string, string> = {}
 
+  let lastSavedSource: [string, string] | undefined
+
   return [
     {
       name: 'slidev:loader',
@@ -130,7 +132,8 @@ export function createSlidesLoader(
 
             Object.assign(slide.source, body)
             parser.prettifySlide(slide.source)
-            await parser.save(data.markdownFiles[slide.source.filepath])
+            const fileContent = await parser.save(data.markdownFiles[slide.source.filepath])
+            lastSavedSource = [slide.source.filepath, fileContent]
 
             res.statusCode = 200
             res.write(JSON.stringify(withRenderedNote(slide)))
@@ -145,7 +148,9 @@ export function createSlidesLoader(
         if (!data.watchFiles.includes(ctx.file))
           return
 
-        await ctx.read()
+        const fileContent = await ctx.read()
+        const notifyClient = !(ctx.file === lastSavedSource?.[0] && fileContent === lastSavedSource[1])
+        lastSavedSource = undefined
 
         const newData = await serverOptions.loadData?.()
         if (!newData)
@@ -175,6 +180,9 @@ export function createSlidesLoader(
         const length = Math.min(data.slides.length, newData.slides.length)
 
         for (let i = 0; i < length; i++) {
+          if (hmrPages.has(i))
+            continue
+
           const a = data.slides[i]
           const b = newData.slides[i]
 
@@ -193,10 +201,10 @@ export function createSlidesLoader(
             })
           ) {
             if (a.note !== b.note) {
-              ctx.server.hot.send(
+              notifyClient && ctx.server.hot.send(
                 'slidev:update-note',
                 {
-                  id: i,
+                  no: i + 1,
                   note: b!.note || '',
                   noteHTML: renderNote(b!.note || ''),
                 },
@@ -205,10 +213,10 @@ export function createSlidesLoader(
             continue
           }
 
-          ctx.server.hot.send(
+          notifyClient && ctx.server.hot.send(
             'slidev:update-slide',
             {
-              id: i,
+              no: i + 1,
               data: withRenderedNote(newData.slides[i]),
             },
           )

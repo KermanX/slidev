@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { nextTick, ref, watch, watchEffect } from 'vue'
-import { ignorableWatch, onClickOutside, useVModel } from '@vueuse/core'
+import { nextTick, ref, toRef, watch, watchEffect } from 'vue'
+import { onClickOutside, useVModel } from '@vueuse/core'
 import type { ClicksContext } from '@slidev/types'
-import { useDynamicSlideInfo } from '../logic/note'
+import { useDynamicSlide } from '../composables/useSlide'
 import NoteDisplay from './NoteDisplay.vue'
 
 const props = defineProps({
   no: {
     type: Number,
+    required: true,
   },
   class: {
     default: '',
@@ -38,38 +39,7 @@ const emit = defineEmits<{
 
 const editing = useVModel(props, 'editing', emit, { passive: true })
 
-const { info, update } = useDynamicSlideInfo(props.no)
-
-const note = ref('')
-let timer: any
-
-// Send back the note on changes
-const { ignoreUpdates } = ignorableWatch(
-  note,
-  (v) => {
-    if (!editing.value)
-      return
-    const id = props.no
-    clearTimeout(timer)
-    timer = setTimeout(() => {
-      update({ note: v }, id)
-    }, 500)
-  },
-)
-
-// Update note value when info changes
-watch(
-  () => info.value?.note,
-  (value = '') => {
-    if (editing.value)
-      return
-    clearTimeout(timer)
-    ignoreUpdates(() => {
-      note.value = value
-    })
-  },
-  { immediate: true, flush: 'sync' },
-)
+const { info, note } = useDynamicSlide(toRef(props, 'no'))
 
 const inputEl = ref<HTMLTextAreaElement>()
 const inputHeight = ref<number | null>()

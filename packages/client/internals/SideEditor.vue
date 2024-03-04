@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { throttledWatch, useEventListener } from '@vueuse/core'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { activeElement, editorHeight, editorWidth, isInputting, showEditor, isEditorVertical as vertical } from '../state'
+import { useEventListener } from '@vueuse/core'
+import { nextTick, onMounted, ref, watch } from 'vue'
+import { editorHeight, editorWidth, showEditor, isEditorVertical as vertical } from '../state'
 import { useCodeMirror } from '../setup/codemirror'
 import { currentSlideNo, openInEditor } from '../logic/nav'
-import { useDynamicSlideInfo } from '../logic/note'
+import { useDynamicSlide } from '../composables/useSlide'
 import IconButton from './IconButton.vue'
 
 const props = defineProps<{
@@ -12,61 +12,19 @@ const props = defineProps<{
 }>()
 
 const tab = ref<'content' | 'note'>('content')
-const content = ref('')
-const note = ref('')
-const dirty = ref(false)
-const frontmatter = ref<any>({})
 const contentInput = ref<HTMLTextAreaElement>()
 const noteInput = ref<HTMLTextAreaElement>()
 
-const { info, update } = useDynamicSlideInfo(currentSlideNo)
-
-watch(
-  info,
-  (v) => {
-    frontmatter.value = v?.frontmatter || {}
-
-    if (!isInputting.value) {
-      note.value = (v?.note || '').trim()
-      content.value = (v?.content || '').trim()
-      dirty.value = false
-    }
-  },
-  { immediate: true },
-)
-
-async function save() {
-  dirty.value = false
-  await update({
-    note: note.value || undefined,
-    content: content.value,
-    // frontmatter: frontmatter.value,
-  })
-}
+const { content, note } = useDynamicSlide(currentSlideNo)
 
 function close() {
   showEditor.value = false
 }
 
-useEventListener('keydown', (e) => {
-  if (activeElement.value?.tagName === 'TEXTAREA' && e.code === 'KeyS' && (e.ctrlKey || e.metaKey)) {
-    save()
-    e.preventDefault()
-  }
-})
-
 onMounted(async () => {
   const contentEditor = await useCodeMirror(
     contentInput,
-    computed({
-      get() { return content.value },
-      set(v) {
-        if (content.value.trim() !== v.trim()) {
-          content.value = v
-          dirty.value = true
-        }
-      },
-    }),
+    content,
     {
       mode: 'markdown',
       lineWrapping: true,
@@ -78,13 +36,7 @@ onMounted(async () => {
 
   const noteEditor = await useCodeMirror(
     noteInput,
-    computed({
-      get() { return note.value },
-      set(v) {
-        note.value = v
-        dirty.value = true
-      },
-    }),
+    note,
     {
       mode: 'markdown',
       lineWrapping: true,
@@ -140,15 +92,6 @@ if (props.resize) {
     updateSize()
   })
 }
-
-throttledWatch(
-  [content, note],
-  () => {
-    if (dirty.value)
-      save()
-  },
-  { throttle: 500 },
-)
 </script>
 
 <template>

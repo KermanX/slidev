@@ -6,7 +6,6 @@ import { CLICKS_MAX } from '../constants'
 const props = defineProps<{
   class?: string
   noteHtml?: string
-  note?: string
   placeholder?: string
   clicksContext?: ClicksContext
   autoScroll?: boolean
@@ -136,13 +135,6 @@ onMounted(() => {
     :class="[props.class, withClicks ? 'slidev-note-with-clicks' : '']"
     v-html="noteHtml"
   />
-  <div
-    v-else-if="note"
-    class="prose overflow-auto outline-none slidev-note"
-    :class="props.class"
-  >
-    <p v-text="note" />
-  </div>
   <div
     v-else
     class="prose overflow-auto outline-none opacity-50 italic select-none slidev-note"
