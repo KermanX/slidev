@@ -150,7 +150,7 @@ onMounted(() => {
         <NoteDisplay
           v-else
           :key="`static-${currentSlideNo}`"
-          :note-html="useSlide(currentSlideNo).info?.value?.noteHTML"
+          :note-html="useSlide(currentSlideNo).value?.noteHTML"
           :clicks-context="clicksContext"
           class="w-full max-w-full h-full overflow-auto p-2 lg:p-4"
           :style="{ fontSize: `${presenterNotesFontSize}em` }"

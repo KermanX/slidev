@@ -131,12 +131,13 @@ export function createSlidesLoader(
               hmrPages.add(idx)
 
             Object.assign(slide.source, body)
+            Object.assign(slide, body)
             parser.prettifySlide(slide.source)
             const fileContent = await parser.save(data.markdownFiles[slide.source.filepath])
             lastSavedSource = [slide.source.filepath, fileContent]
 
             res.statusCode = 200
-            res.write(JSON.stringify(withRenderedNote(slide)))
+            res.write(JSON.stringify(renderNote(slide.source.note)))
             return res.end()
           }
 
@@ -180,14 +181,12 @@ export function createSlidesLoader(
         const length = Math.min(data.slides.length, newData.slides.length)
 
         for (let i = 0; i < length; i++) {
-          if (hmrPages.has(i))
-            continue
-
           const a = data.slides[i]
           const b = newData.slides[i]
 
           if (
-            a.content.trim() === b.content.trim()
+            !hmrPages.has(i)
+            && a.content.trim() === b.content.trim()
             && a.title?.trim() === b.title?.trim()
             && equal(a.frontmatter, b.frontmatter)
             && Object.entries(a.snippetsUsed ?? {}).every(([file, oldContent]) => {
