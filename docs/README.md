@@ -1,25 +1,25 @@
-# [sli.dev](https://sli.dev)
+# [sli.dev]
 
 Documentation for [Slidev](https://github.com/slidevjs/slidev)
 
 ## Translations
 
-|                | Repo                                           |                             Site | Maintainers                                                           |
-| -------------- | ---------------------------------------------- | -------------------------------: | --------------------------------------------------------------------- |
-| English        | [docs](https://github.com/slidevjs/docs)       |       [sli.dev](https://sli.dev) | [@antfu](https://github.com/antfu)                                    |
-| 简体中文       | [docs-cn](https://github.com/slidevjs/docs-cn) | [cn.sli.dev](https://cn.sli.dev) | [@QC-L](https://github.com/QC-L) [@Ivocin](https://github.com/Ivocin) |
-| Français       | [docs-fr](https://github.com/slidevjs/docs-fr) | [fr.sli.dev](https://fr.sli.dev) | [@ArthurDanjou](https://github.com/ArthurDanjou)                      |
-| Español        | [docs-es](https://github.com/slidevjs/docs-es) | [es.sli.dev](https://es.sli.dev) | [@owlnai](https://github.com/owlnai)                                  |
-| Русский        | [docs-ru](https://github.com/slidevjs/docs-ru) | [ru.sli.dev](https://ru.sli.dev) | [@xesjkeee](https://github.com/xesjkeee)                              |
-| Việt Nam       | [docs-vn](https://github.com/slidevjs/docs-vn) | [vn.sli.dev](https://vn.sli.dev) | [@bongudth](https://github.com/bongudth)                              |
-| Deutsch        | [docs-de](https://github.com/slidevjs/docs-de) | [de.sli.dev](https://de.sli.dev) | [@fabiankachlock](https://github.com/fabiankachlock)                  |
-| Português (BR) | [docs-br](https://github.com/slidevjs/docs-br) | [br.sli.dev](https://br.sli.dev) | [@luisfelipesdn12](https://github.com/luisfelipesdn12)                |
-| Ελληνικά       | [docs-el](https://github.com/slidevjs/docs-el) | [el.sli.dev](https://el.sli.dev) | [@GeopJr](https://github.com/GeopJr)                                  |
-| 日本語         | [docs-ja](https://github.com/slidevjs/docs-el) | [ja.sli.dev](https://ja.sli.dev) | [@IkumaTadokoro](https://github.com/IkumaTadokoro)                    |
+|                | Repo      | Site         | Maintainers        |
+| -------------- | --------- | ------------ | ------------------ |
+| English        | [docs]    | [sli.dev]    | [@antfu]           |
+| 简体中文       | [docs-cn] | [cn.sli.dev] | [@QC-L] [@Ivocin]  |
+| Français       | [docs-fr] | [fr.sli.dev] | [@ArthurDanjou]    |
+| Español        | [docs-es] | [es.sli.dev] | [@owlnai]          |
+| Русский        | [docs-ru] | [ru.sli.dev] | [@xesjkeee]        |
+| Việt Nam       | [docs-vn] | [vn.sli.dev] | [@bongudth]        |
+| Deutsch        | [docs-de] | [de.sli.dev] | [@fabiankachlock]  |
+| Português (BR) | [docs-br] | [br.sli.dev] | [@luisfelipesdn12] |
+| Ελληνικά       | [docs-el] | [el.sli.dev] | [@GeopJr]          |
+| 日本語         | [docs-ja] | [ja.sli.dev] | [@IkumaTadokoro]   |
 
 ## Start Server Locally
 
-```
+```bash
 npm i -g pnpm
 
 pnpm i
@@ -33,3 +33,40 @@ Or install the [Vite extension for VS Code](https://marketplace.visualstudio.com
 ## Help on Translating
 
 Please join our [Discord Server](https://chat.sli.dev) and contact the maintainers.
+
+<!-- Docusment Repos -->
+[docs]: <https://github.com/slidevjs/docs>
+[docs-cn]: https://github.com/slidevjs/docs-cn
+[docs-fr]: https://github.com/slidevjs/docs-fr
+[docs-es]: https://github.com/slidevjs/docs-es
+[docs-ru]: https://github.com/slidevjs/docs-ru
+[docs-vn]: https://github.com/slidevjs/docs-vn
+[docs-de]: https://github.com/slidevjs/docs-de
+[docs-br]: https://github.com/slidevjs/docs-br
+[docs-el]: https://github.com/slidevjs/docs-el
+[docs-ja]: https://github.com/slidevjs/docs-el
+
+<!-- Sites -->
+[sli.dev]: https://sli.dev
+[cn.sli.dev]: https://cn.sli.dev
+[fr.sli.dev]: https://fr.sli.dev
+[es.sli.dev]: https://es.sli.dev
+[ru.sli.dev]: https://ru.sli.dev
+[vn.sli.dev]: https://vn.sli.dev
+[de.sli.dev]: https://de.sli.dev
+[br.sli.dev]: https://br.sli.dev
+[el.sli.dev]: https://el.sli.dev
+[ja.sli.dev]: https://ja.sli.dev
+
+<!-- Maintainers -->
+[@antfu]: https://github.com/antfu
+[@QC-L]: https://github.com/QC-L
+[@Ivocin]: https://github.com/Ivocin
+[@ArthurDanjou]: https://github.com/ArthurDanjou
+[@owlnai]: https://github.com/owlnai
+[@xesjkeee]: https://github.com/xesjkeee
+[@bongudth]: https://github.com/bongudth
+[@fabiankachlock]: https://github.com/fabiankachlock
+[@luisfelipesdn12]: https://github.com/luisfelipesdn12
+[@GeopJr]: https://github.com/GeopJr
+[@IkumaTadokoro]: https://github.com/IkumaTadokoro
